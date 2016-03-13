@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .high {
+      background-color: #00FF00;
+    }
+    .low {
+      background-color: #FF0000;
+    }
+    .button {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      cursor: pointer;
+    }
+    .buttonout {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+    }
+    .andimg {
+      position: absolute;
+      left: 80px;
+      top: 50px;
+      width: 240px;
+      height: 200px;
+    }
+  </style>
+</head>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script>
+var addClickFunction = function(aButton, bButton, outButton, logicTest) {
+  var buttons = [aButton, bButton];
+  for(var i=0;i<2;i++) {
+    if(buttons[i]) {
+      buttons[i].click(function(){
+        if($(this).hasClass('high')) {
+          $(this).removeClass('high').addClass('low');
+        } else {
+          $(this).removeClass('low').addClass('high');
+        }
+        if(logicTest(aButton, bButton)) {
+          outButton.removeClass('low').addClass('high');
+        } else {
+          outButton.removeClass('high').addClass('low');
+        }
+      });
+    }
+  }
+}
+$(document).ready(function(){
+  addClickFunction($('.anda'),$('.andb'),$('.andout'), function(a,b) {
+    return a.hasClass('high') && b.hasClass('high');
+  });
+
+  addClickFunction($('.ora'),$('.orb'),$('.orout'), function(a,b) {
+    return a.hasClass('high') || b.hasClass('high');
+  });
+
+  addClickFunction($('.xora'),$('.xorb'),$('.xorout'), function(a,b) {
+    return (a.hasClass('high') && b.hasClass('low')) || (b.hasClass('high') && a.hasClass('low'));
+  });
+
+  addClickFunction($('.nanda'),$('.nandb'),$('.nandout'), function(a,b) {
+    return !(a.hasClass('high') && b.hasClass('high'));
+  });
+
+  addClickFunction($('.nora'),$('.norb'),$('.norout'), function(a,b) {
+    return !(a.hasClass('high') || b.hasClass('high'));
+  });
+  addClickFunction($('.not'),null,$('.notout'), function(a,b) {
+    return !a.hasClass('high');
+  });
+});
+</script>
+<body>
+  <h3>NOT</h3>
+  <div style="width: 400px; height: 300px; border: 1px solid black; position: relative;">
+      <div class="not button low" style="top: 130px; left: 40px;"></div>
+      <div class="notout buttonout high" style="top: 130px; right: 40px;"></div>
+      <img src="http://www.clker.com/cliparts/a/C/i/t/s/H/not-gate-md.png" class="andimg">
+  </div>
+  <h3>AND</h3>
+  <div style="width: 400px; height: 300px; border: 1px solid black; position: relative;">
+      <div class="anda button low" style="top: 80px; left: 40px;"></div>
+      <div class="andb button low" style="bottom: 80px; left: 40px;"></div>
+      <div class="andout buttonout low" style="top: 130px; right: 40px;"></div>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1RaKdWu8cZrZU5eyG3ptB6wXlKMfjhtHJtmgEi25uuMxVpHPd-A" class="andimg">
+  </div>
+  <h3>OR</h3>
+  <div style="width: 400px; height: 300px; border: 1px solid black; position: relative;">
+      <div class="ora button low" style="top: 80px; left: 40px;"></div>
+      <div class="orb button low" style="bottom: 80px; left: 40px;"></div>
+      <div class="orout buttonout low" style="top: 130px; right: 40px;"></div>
+      <img src="http://www.clker.com/cliparts/c/3/u/q/P/A/or-gate-md.png" class="andimg">
+  </div>
+  <h3>XOR</h3>
+  <div style="width: 400px; height: 300px; border: 1px solid black; position: relative;">
+      <div class="xora button low" style="top: 80px; left: 40px;"></div>
+      <div class="xorb button low" style="bottom: 80px; left: 40px;"></div>
+      <div class="xorout buttonout low" style="top: 130px; right: 40px;"></div>
+      <img src="http://www.clker.com/cliparts/N/L/k/K/h/J/or2-md.png" class="andimg">
+  </div>
+  <h3>NAND</h3>
+  <div style="width: 400px; height: 300px; border: 1px solid black; position: relative;">
+      <div class="nanda button low" style="top: 80px; left: 40px;"></div>
+      <div class="nandb button low" style="bottom: 80px; left: 40px;"></div>
+      <div class="nandout buttonout high" style="top: 130px; right: 40px;"></div>
+      <img src="http://4.bp.blogspot.com/-3WlR0qkbjTM/U5803C7sADI/AAAAAAAAEoA/TFVVn_mfEY4/s1600/nand-gate.gif" class="andimg">
+  </div>
+  <h3>NOR</h3>
+  <div style="width: 400px; height: 300px; border: 1px solid black; position: relative;">
+      <div class="nora button low" style="top: 80px; left: 40px;"></div>
+      <div class="norb button low" style="bottom: 80px; left: 40px;"></div>
+      <div class="norout buttonout high" style="top: 130px; right: 40px;"></div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/NOR_ANSI.svg/220px-NOR_ANSI.svg.png" class="andimg">
+  </div>
+</body>
+</html>
